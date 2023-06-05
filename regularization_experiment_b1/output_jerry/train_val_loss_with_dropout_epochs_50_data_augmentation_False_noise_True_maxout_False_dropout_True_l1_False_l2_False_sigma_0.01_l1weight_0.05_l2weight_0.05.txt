@@ -1,0 +1,2 @@
+Test score: 0.7813725670814514
+Test accuracy: 0.7435
