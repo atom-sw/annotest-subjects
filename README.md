@@ -1,7 +1,9 @@
 # aNNoTest subjects
 
 This repository contains subjects we collected from Islam et al. (2019)
-to do the experiments in our paper:
+to do the experiments in our paper.
+
+## Our paper
 
 ```
 @article{Rezaalipour:2023,
@@ -17,5 +19,10 @@ author = {Mohammad Rezaalipour and Carlo A. Furia},
 keywords = {Test generation, Neural networks, Debugging, Python},
 }
 ```
+
+## Subject information
+
+File [bugs_info.csv](bugs_info.csv) contains information about the subjects in this repository.
+
 
 
