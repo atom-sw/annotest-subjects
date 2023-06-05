@@ -1,4 +1,4 @@
-#,init_id,framework,id,project,acronym,type,link
+#,internal_id,framework,id,project,acronym,type,link
 1,repo1:1,Keras,densenet_b1,densenet,DN,known,https://github.com/cmasch/densenet/commit/693d772ae9dcdb4d524b25d7d2f6428de4a524ff#diff-813086a9be01b05b352f0111384c48e74735b009e22f4bab1f3dcaa06e2303c2L60
 2,repo1:2,Keras,densenet_b2,densenet,DN,known,https://github.com/cmasch/densenet/commit/693d772ae9dcdb4d524b25d7d2f6428de4a524ff#diff-813086a9be01b05b352f0111384c48e74735b009e22f4bab1f3dcaa06e2303c2L62
 3,repo6:9,Keras,neural_algorithm_artistic_style_b1,neural-algorithm-artistic-style,NAAS,known,https://github.com/anastassia-b/neural-algorithm-artistic-style/commit/b1f76fea61ea73c600191f3e681e74cafcdfdcab#diff-ed183d67207df065a11e1289f19d34cc2abbc5448dea952683cfe9728c342b95L36
@@ -19,3 +19,4 @@
 18,repo17:103,Keras,keras_frcnn_b2,keras_frcnn,FRCNN,known,https://github.com/dishen12/keras_frcnn/commit/d91c0adc5ccd34f6e346fdeddc0a2ce7085a4ffb#diff-1695f8f9815806784246357a6efd9355c102c2824bceed0f26e16838ddf602d3L12
 19,repo17:104,Keras,keras_frcnn_b3,keras_frcnn,FRCNN,known,https://github.com/dishen12/keras_frcnn/commit/d91c0adc5ccd34f6e346fdeddc0a2ce7085a4ffb#diff-1695f8f9815806784246357a6efd9355c102c2824bceed0f26e16838ddf602d3L13
 20,repo23:129,Keras,mnistCRNN_b1,mnistCRNN,mCRNN,known,https://github.com/jamesmf/mnistCRNN/commit/274c9fe0392fd0a2ad499e3c0fe9ee239d7c650a#diff-8c3463d540470a60dc7460b8381e51612b97531297cfb7463cc779af539ede42L61
+21,repo28:144,Keras,regularization_experiment_b1,regularization-experiment,RE,known,https://github.com/katyprogrammer/regularization-experiment/commit/b93dd636c9075a9f88576b8ab3264d0aa0b62554#diff-ce40068d6122a4b39f80ef146a1f3ba460f421081d67e929cab3a465c540e68cL134
