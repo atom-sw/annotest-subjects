@@ -15,3 +15,6 @@
 14,repo12:343,Keras,keras_image_segmentation_b5,keras-image-segmentation,KIS,known,https://github.com/dhkim0225/keras-image-segmentation/commit/992685cde39c3d53ea881d22b9cb26e84963d4bb#diff-d0ff8417443a18c35cc6c3183197d82f48cee72d735133ff901da033d0e32242L51
 15,repo14:89,Keras,UNet_Keras_b1,UNet_Keras,UN,known,https://github.com/taashi-s/UNet_Keras/commit/fd81da67bfcf173331e03687425040138e76bc8f#diff-e1afe2b6eb4252b0f813153018d4e40a721ed0bac509ce0a3f75d14c046fc800R38
 16,repo14:90,Keras,UNet_Keras_b2,UNet_Keras,UN,known,https://github.com/taashi-s/UNet_Keras/commit/fd81da67bfcf173331e03687425040138e76bc8f#diff-e1afe2b6eb4252b0f813153018d4e40a721ed0bac509ce0a3f75d14c046fc800R51
+17,repo17:102,Keras,keras_frcnn_b1,keras_frcnn,FRCNN,known,https://github.com/dishen12/keras_frcnn/commit/d91c0adc5ccd34f6e346fdeddc0a2ce7085a4ffb#diff-1695f8f9815806784246357a6efd9355c102c2824bceed0f26e16838ddf602d3L2
+18,repo17:103,Keras,keras_frcnn_b2,keras_frcnn,FRCNN,known,https://github.com/dishen12/keras_frcnn/commit/d91c0adc5ccd34f6e346fdeddc0a2ce7085a4ffb#diff-1695f8f9815806784246357a6efd9355c102c2824bceed0f26e16838ddf602d3L12
+19,repo17:104,Keras,keras_frcnn_b3,keras_frcnn,FRCNN,known,https://github.com/dishen12/keras_frcnn/commit/d91c0adc5ccd34f6e346fdeddc0a2ce7085a4ffb#diff-1695f8f9815806784246357a6efd9355c102c2824bceed0f26e16838ddf602d3L13
