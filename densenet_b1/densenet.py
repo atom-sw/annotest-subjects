@@ -59,7 +59,8 @@ def DenseNet(input_shape=None, dense_blocks=3, dense_layers=-1, growth_rate=12, 
     elif dense_layers == -1:
         dense_layers = (depth - 4)/3
         if bottleneck:
-            dense_layers = dense_layers / 2
+            # dense_layers = dense_layers / 2  # repo_change
+            dense_layers = int(dense_layers / 2)  # repo_change
         dense_layers = [dense_layers for _ in range(dense_blocks)]
     else:
         dense_layers = [dense_layers for _ in range(dense_blocks)]
