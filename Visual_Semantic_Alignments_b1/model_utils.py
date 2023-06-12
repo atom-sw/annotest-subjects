@@ -10,7 +10,7 @@
 from __future__ import print_function
 from keras.preprocessing import image
 from keras.applications.vgg16 import VGG16, preprocess_input
-from keras.backend as K
+from keras.backend as K  # repo_bug
 import numpy as np
 import pdb
 
