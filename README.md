@@ -51,7 +51,7 @@ export ANACONDA3_DIRECTORY=~/anaconda3
 3. Clone the repository.
 
 ```
-git clone git@github.com:mohrez86/annotest-subjects-dev.git
+git clone git@github.com:mohrez86/annotest-subjects.git
 
 cd annotest-subjects-dev
 git checkout dev
