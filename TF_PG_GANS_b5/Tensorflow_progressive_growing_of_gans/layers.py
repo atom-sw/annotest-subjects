@@ -169,12 +169,13 @@ class WScaleLayer(Layer):
         kernel = K.get_value(self.incoming.kernel)
         scale = np.sqrt(np.mean(kernel ** 2))
         K.set_value(self.incoming.kernel,kernel/scale)
-        self.scale=self.add_weight(name = 'scale',shape = scale.shape,trainable=False)
+        # self.scale=self.add_weight(name = 'scale',shape = scale.shape,trainable=False)  # repo_change
+        self.scale = self.add_weight(name='scale', shape=scale.shape, trainable=False, initializer='zeros')  # repo_change
         K.set_value(self.scale,scale)
         if  hasattr(self.incoming, 'bias') and self.incoming.bias is not None:
             bias = K.get_value(self.incoming.bias)
-            self.bias=self.add_weight(name = 'bias',shape = bias.shape)
-            del self.incoming.trainable_weights[self.incoming.bias]
+            self.bias=self.add_weight(name = 'bias',shape = bias.shape)  # repo_bug 1/2
+            del self.incoming.trainable_weights[self.incoming.bias]  # repo_bug 2/2
             self.incoming.bias = None
         
     def call(self, input, **kwargs):

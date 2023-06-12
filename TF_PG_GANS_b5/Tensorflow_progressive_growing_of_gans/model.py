@@ -8,7 +8,8 @@ from keras import activations
 from keras import initializers
 from keras.models import Model
 import numpy as np
-from layers import *
+# from layers import *  # repo_change
+from .layers import *  # repo_change
 
 linear, linear_init = activations.linear,       initializers.VarianceScaling(scale=1.0, mode='fan_in', distribution='normal')
 relu,   relu_init = activations.relu,         initializers.he_normal()
@@ -151,8 +152,10 @@ def Discriminator(num_channels=1,        # Overridden based on dataset.
             actv,
             init,
             name=None):
-        layer = Conv2D(num_channels, 1, activation=actv,
-                       kernel_initializer=init, pad='same', name=name + 'NIN')
+        # layer = Conv2D(num_channels, 1, activation=actv,  # repo_change
+        #                kernel_initializer=init, pad='same', name=name + 'NIN')  # repo_change
+        layer = Conv2D(num_channels, 1, activation=actv,  # repo_change
+                       kernel_initializer=init, padding='same', name=name + 'NIN')  # repo_change
         net = layer(net)
         if use_wscale:
             layer = WScaleLayer(layer, name=name + 'NINWS')
@@ -181,7 +184,8 @@ def Discriminator(num_channels=1,        # Overridden based on dataset.
             net = layer(net)
         return net
 
-    inputs = Input(shape=[None, 2**R, 2**R,num_channels], name='Dimages')
+    # inputs = Input(shape=[None, 2**R, 2**R,num_channels], name='Dimages')  # repo_change
+    inputs = Input(shape=[2 ** R, 2 ** R, num_channels], name='Dimages')  # repo_change
     net = NINBlock(inputs, numf(R-1), lrelu, lrelu_init, name='D%dx' % (R-1))
     for i in range(R-1, 1, -1):
         net = ConvBlock(net, numf(i), 3, lrelu, lrelu_init, 1, name='D%db' % i)
