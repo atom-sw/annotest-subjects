@@ -5,7 +5,12 @@ import time
 import cv2
 from keras.preprocessing.image import ImageDataGenerator
 
-data = h5py.File('data.h5', 'r')
+# data = h5py.File('data.h5', 'r')  # repo_change
+import os  # repo_change
+path_to_data = (os.path.expanduser('~') +  # repo_change
+                "/annotest_subjects_data/keras_image_segmentation_b2/data.h5")  # repo_change
+print("PATH EXISTS", os.path.exists(path_to_data))
+data = h5py.File(path_to_data, 'r')  # repo_change
 
 # Use only 3 classes.
 # labels = ['background', 'person', 'car', 'road']
@@ -48,7 +53,9 @@ def get_data_gen_args(mode):
 
 # One hot encoding for y_img.
 def get_result_map(y_img):
-    result_map = np.zeros((256, 512, 4))
+    # result_map = np.zeros((256, 512, 4))  # repo_change
+    y_img = np.squeeze(y_img, axis=3)  # repo_change
+    result_map = np.zeros((4, 256, 512, 4))  # repo_change
 
     # For np.where calculation.
     person = (y_img == 24)
@@ -56,8 +63,9 @@ def get_result_map(y_img):
     road = (y_img == 7)
     background = np.logical_not(person + car + road)
 
-    result_map[:, :, 0] = np.where(background, 1, 0)
-    result_map[:, :, 1] = np.where(person, 1, 0)
+    # result_map[:, :, 0] = np.where(background, 1, 0)  # repo_change
+    result_map[:, :, :, 0] = np.where(background, 1, 0)  # repo_change
+    result_map[:, :, 1] = np.where(person, 1, 0)  # repo_bug
     result_map[:, :, 2] = np.where(car, 1, 0)
     result_map[:, :, 3] = np.where(road, 1, 0)
 
