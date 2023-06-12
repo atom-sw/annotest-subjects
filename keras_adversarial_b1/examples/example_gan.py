@@ -15,7 +15,8 @@ from keras_adversarial import AdversarialModel, simple_gan, gan_targets
 from keras_adversarial import normal_latent_sampling, AdversarialOptimizerSimultaneous
 from keras_adversarial.legacy import l1l2, Dense, fit
 import keras.backend as K
-from mnist_utils import mnist_data
+# from mnist_utils import mnist_data  # repo_change
+from .mnist_utils import mnist_data  # repo_change
 
 
 def model_generator(latent_dim, input_shape, hidden_dim=1024, reg=lambda: l1l2(1e-5, 1e-5)):
@@ -37,7 +38,7 @@ def model_discriminator(input_shape, hidden_dim=1024, reg=lambda: l1l2(1e-5, 1e-
         Flatten(name="discriminator_flatten", input_shape=input_shape),
         Dense(hidden_dim, name="discriminator_h1", W_regularizer=reg()),
         LeakyReLU(0.2),
-        Dense(hidden_dim / 2, name="discriminator_h2", W_regularizer=reg()),
+        Dense(hidden_dim / 2, name="discriminator_h2", W_regularizer=reg()),  # repo_bug
         LeakyReLU(0.2),
         Dense(hidden_dim / 4, name="discriminator_h3", W_regularizer=reg()),
         LeakyReLU(0.2),
