@@ -26,8 +26,11 @@ args = parser.parse_args()
 # loading data
 print("loading data.....\n\n")
 home = os.path.expanduser("~")
-train_json, train_shared_json = load_processed_json('./data/squad/data_train.json', './data/squad/shared_train.json')
-test_json, test_shared_json = load_processed_json('./data/squad/data_test.json', './data/squad/shared_test.json')
+bug_data_dir = (os.path.expanduser('~') + "/annotest_subjects_data/BiDAF_PyTorch_b1/")  # repo_change
+# train_json, train_shared_json = load_processed_json('./data/squad/data_train.json', './data/squad/shared_train.json')  # repo_change
+train_json, train_shared_json = load_processed_json(bug_data_dir + './data/squad/data_train.json', bug_data_dir + './data/squad/shared_train.json')  # repo_change
+# test_json, test_shared_json = load_processed_json('./data/squad/data_test.json', './data/squad/shared_test.json')  # repo_change
+test_json, test_shared_json = load_processed_json(bug_data_dir + './data/squad/data_test.json', bug_data_dir + './data/squad/shared_test.json')  # repo_change
 train_data = DataSet(train_json, train_shared_json)
 test_data = DataSet(test_json, test_shared_json)
 

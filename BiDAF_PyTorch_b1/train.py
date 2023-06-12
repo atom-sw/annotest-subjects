@@ -46,9 +46,9 @@ class Trainer(object):
 				ans_start = answer[:, 0]
 				ans_end = answer[:, 1] - 1
 				p1, p2 = self.model(ctx_word_lv, ctx_char_lv, query_word_lv, query_char_lv)
-				loss_p1 = nn.NLLLoss(p1, ans_start)
-				loss_p2 = nn. NLLLoss(p2, ans_end)
-				loss = torch.add(loss_p1, loss_p2)
+				loss_p1 = nn.NLLLoss(p1, ans_start)  # repo_bug 1/3
+				loss_p2 = nn. NLLLoss(p2, ans_end)  # repo_bug 2/3
+				loss = torch.add(loss_p1, loss_p2)  # repo_bug 3/3
 				p1_EM += torch.sum(ans_start == torch.max(p1, 1)[1]).item()
 				p2_EM += torch.sum(ans_start == torch.max(p2, 1)[1]).item()
 				num_data_processed += len(batch)
