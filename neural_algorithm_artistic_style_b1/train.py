@@ -33,7 +33,7 @@ reshaped_image = Reshape((768, 1024, 3))(image_tensor)
 content_tensor, *style_tensors = featurization_model(reshaped_image)
 feature_tensors = [content_tensor, *style_tensors]
 
-training_model = Model(inputs=input_tensor, outputs=feature_tensor)
+training_model = Model(inputs=input_tensor, outputs=feature_tensor)  # repo_bug
 training_model.summary()
 
 def save_int_image(epoch_idx, logs):
@@ -53,6 +53,7 @@ training_model.fit(
     np.ones([1, 1]),
     target_values,
     batch_size=1,
-    epochs=3000,
+    # epochs=3000,  # repo_change
+    epochs=1,  # repo_change
     callbacks=[LambdaCallback(on_epoch_end=save_int_image)]
 )

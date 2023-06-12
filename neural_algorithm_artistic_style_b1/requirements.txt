@@ -1,0 +1,5 @@
+keras==2.1.5
+wrapt==1.11.1
+Pillow==5.0.0
+tensorflow==1.6.0
+h5py==2.7.1
