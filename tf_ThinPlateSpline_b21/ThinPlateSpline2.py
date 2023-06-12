@@ -144,7 +144,8 @@ def ThinPlateSpline2(U, source, target, out_size):
     num_point  = tf.shape(source)[1]
     
     ones = tf.ones([num_batch, num_point, 1], dtype="float32")
-    p = tf.concat(2, [ones, source]) # [bn, pn, 3]
+    # p = tf.concat(2, [ones, source]) # [bn, pn, 3]  # repo_change
+    p = tf.concat([ones, source], 2) # [bn, pn, 3]  # repo_change
 
     p_1 = tf.reshape(p, [num_batch, -1, 1, 3]) # [bn, pn, 1, 3]
     p_2 = tf.reshape(p, [num_batch, 1, -1, 3]) # [bn, 1, pn, 3]
@@ -152,7 +153,7 @@ def ThinPlateSpline2(U, source, target, out_size):
     r = d2 * tf.log(d2 + 1e-6) # [bn, pn, pn]
 
     zeros = tf.zeros([num_batch, 3, 3], dtype="float32")
-    W_0 = tf.concat(2, [p, r]) # [bn, pn, 3+pn]
+    W_0 = tf.concat(2, [p, r]) # [bn, pn, 3+pn]  # repo_bug
     W_1 = tf.concat(2, [
       zeros, tf.transpose(p, [0, 2, 1])]) # [bn, 3, pn+3]
     W = tf.concat(1, [W_0, W_1]) # [bn, pn+3, pn+3]
