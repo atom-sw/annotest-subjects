@@ -33,11 +33,11 @@ class UNet(object):
         self.MODEL = Model(inputs=inputs, outputs=outputs)
 
     def __add_Encode_layers(self, filters, inputLayer):
-        layer = Conv2D(filters, (3, 3), strides=(
-            3, 3), activation='relu')(inputLayer)
-        layer = Conv2D(filters, (3, 3), strides=(
-            3, 3), activation='relu')(layer)
-        layer = MaxPooling2D((2, 2))(layer)
+        layer = Conv2D(filters, (3, 3), strides=(  # repo_bug (not clear)
+            3, 3), activation='relu')(inputLayer)  # repo_bug (not clear)
+        layer = Conv2D(filters, (3, 3), strides=(  # repo_bug (not clear)
+            3, 3), activation='relu')(layer)  # repo_bug (not clear)
+        layer = MaxPooling2D((2, 2))(layer)  # repo_bug (not clear)
         return layer
 
     def __add_Decode_layers(self, filters, inputLayer, concatLayer):
