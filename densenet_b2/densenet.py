@@ -57,9 +57,10 @@ def DenseNet(input_shape=None, dense_blocks=3, dense_layers=-1, growth_rate=12, 
         if len(dense_layers) != dense_blocks:
             raise AssertionError('Number of dense blocks have to be same length to specified layers')
     elif dense_layers == -1:
-        dense_layers = (depth - 4)/3
+        # dense_layers = (depth - 4)/3  # repo_change
+        dense_layers = int((depth - 4) / 3)  # repo_change
         if bottleneck:
-            dense_layers = dense_layers / 2
+            dense_layers = dense_layers / 2  # repo_bug
         dense_layers = [dense_layers for _ in range(dense_blocks)]
     else:
         dense_layers = [dense_layers for _ in range(dense_blocks)]
