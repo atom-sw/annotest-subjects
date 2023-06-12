@@ -144,7 +144,8 @@ def ThinPlateSpline(U, coord, vector, out_size):
     num_point  = tf.shape(coord)[1]
     
     ones = tf.ones([num_batch, num_point, 1], dtype="float32")
-    p = tf.concat(2, [ones, coord]) # [bn, pn, 3]
+    # p = tf.concat(2, [ones, coord]) # [bn, pn, 3]  # repo_change
+    p = tf.concat([ones, coord], 2) # [bn, pn, 3]  # repo_change
 
     p_1 = tf.reshape(p, [num_batch, -1, 1, 3]) # [bn, pn, 1, 3]
     p_2 = tf.reshape(p, [num_batch, 1, -1, 3]) # [bn, 1, pn, 3]
@@ -152,15 +153,18 @@ def ThinPlateSpline(U, coord, vector, out_size):
     r = d2 * tf.log(d2 + 1e-6) # [bn, pn, pn]
 
     zeros = tf.zeros([num_batch, 3, 3], dtype="float32")
-    W_0 = tf.concat(2, [p, r]) # [bn, pn, 3+pn]
-    W_1 = tf.concat(2, [
-      zeros, tf.transpose(p, [0, 2, 1])]) # [bn, 3, pn+3]
-    W = tf.concat(1, [W_0, W_1]) # [bn, pn+3, pn+3]
+    # W_0 = tf.concat(2, [p, r]) # [bn, pn, 3+pn]  # repo_change
+    W_0 = tf.concat([p, r], 2) # [bn, pn, 3+pn]  # repo_change
+    # W_1 = tf.concat(2, [  # repo_change
+      # zeros, tf.transpose(p, [0, 2, 1])]) # [bn, 3, pn+3]  # repo_change
+    W_1 = tf.concat([zeros, tf.transpose(p, [0, 2, 1])], 2) # [bn, 3, pn+3]  # repo_change
+    # W = tf.concat(1, [W_0, W_1]) # [bn, pn+3, pn+3]  # repo_change
+    W = tf.concat([W_0, W_1], 1) # [bn, pn+3, pn+3]  # repo_change
     W_inv = tf.matrix_inverse(W) 
 
     tp = tf.pad(coord+vector, 
       [[0, 0], [0, 3], [0, 0]], "CONSTANT") # [bn, pn+3, 2]
-    T = tf.batch_matmul(W_inv, tp) # [bn, pn+3, 2]
+    T = tf.batch_matmul(W_inv, tp) # [bn, pn+3, 2]  # repo_bug
     T = tf.transpose(T, [0, 2, 1]) # [bn, 2, pn+3]
 
     return T
