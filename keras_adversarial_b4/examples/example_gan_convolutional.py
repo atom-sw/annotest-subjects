@@ -7,13 +7,15 @@ from keras.layers import Dense, Reshape, Flatten, Dropout, LeakyReLU, Input, Act
 from keras.models import Sequential, Model
 from keras.layers.convolutional import Convolution2D, UpSampling2D
 from keras.optimizers import Adam
-from keras.regularizers import l1, l1l2
+# from keras.regularizers import l1, l1l2  # repo_change
 from keras.datasets import mnist
 import pandas as pd
 import numpy as np
 import keras.backend as K
-from adversarial import AdversarialModel, ImageGridCallback, simple_gan, gan_targets
-from adversarial import AdversarialOptimizerSimultaneous, normal_latent_sampling, AdversarialOptimizerAlternating
+# from adversarial import AdversarialModel, ImageGridCallback, simple_gan, gan_targets  # repo_change
+from keras_adversarial import AdversarialModel, ImageGridCallback, simple_gan, gan_targets  # repo_change
+# from adversarial import AdversarialOptimizerSimultaneous, normal_latent_sampling, AdversarialOptimizerAlternating  # repo_change
+from keras_adversarial import AdversarialOptimizerSimultaneous, normal_latent_sampling, AdversarialOptimizerAlternating  # repo_change
 
 
 def leaky_relu(x):
@@ -52,14 +54,17 @@ def model_generator():
     nch = 256
     g_input = Input(shape=[100])
     H = Dense(nch * 14 * 14, init='glorot_normal')(g_input)
-    H = BatchNormalization(mode=2)(H)
+    # H = BatchNormalization(mode=2)(H)  # repo_change
+    H = BatchNormalization()(H)  # repo_change
     H = Activation('relu')(H)
     H = dim_ordering_reshape(nch, 14)(H)
     H = UpSampling2D(size=(2, 2))(H)
-    H = Convolution2D(nch / 2, 3, 3, border_mode='same', init='glorot_uniform')(H)
-    H = BatchNormalization(mode=2)(H)
+    # H = Convolution2D(nch / 2, 3, 3, border_mode='same', init='glorot_uniform')(H)  # repo_change
+    H = Convolution2D(int(nch / 2), 3, 3, border_mode='same', init='glorot_uniform')(H)  # repo_change
+    # H = BatchNormalization(mode=2)(H)  # repo_change
+    H = BatchNormalization()(H)  # repo_change
     H = Activation('relu')(H)
-    H = Convolution2D(nch / 4, 3, 3, border_mode='same', init='glorot_uniform')(H)
+    H = Convolution2D(nch / 4, 3, 3, border_mode='same', init='glorot_uniform')(H)  # repo_bug
     H = BatchNormalization(mode=2)(H)
     H = Activation('relu')(H)
     H = Convolution2D(1, 1, 1, border_mode='same', init='glorot_uniform')(H)

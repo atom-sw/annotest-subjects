@@ -1,1 +1,6 @@
-keras>=1.1.2
+keras==2.0.8
+wrapt==1.11.1
+tensorflow==1.1.0
+matplotlib==2.0.2
+pandas==0.20.3
+h5py==2.8.0

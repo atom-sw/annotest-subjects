@@ -3,7 +3,8 @@ from keras.models import Model
 from keras import optimizers, objectives
 import numpy as np
 import itertools
-from adversarial_utils import fix_names, merge_updates
+# from adversarial_utils import fix_names, merge_updates  # repo_change
+from .adversarial_utils import fix_names, merge_updates  # repo_change
 
 
 class AdversarialModel(Model):
