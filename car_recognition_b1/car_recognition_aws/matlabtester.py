@@ -94,7 +94,7 @@ def model(learningRate, optimazerLastLayer, noOfEpochs, batchSize, savedModelNam
         class_mode='categorical')
 
     # create the base pre-trained model
-    base_model = VGG19(weights='imagenet', include_top=False)#, pooling='avg')
+    base_model = VGG19(weights='imagenet', include_top=False)#, pooling='avg')  # repo_bug
     #base_model.add(Flatten())
     # add a global spatial average pooling layer
     #x = base_model.output
