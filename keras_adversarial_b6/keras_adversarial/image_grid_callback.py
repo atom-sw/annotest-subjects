@@ -1,5 +1,6 @@
 from keras.callbacks import Callback
-from image_grid import write_image_grid
+# from image_grid import write_image_grid  # repo_change
+from .image_grid import write_image_grid  # repo_change
 
 
 class ImageGridCallback(Callback):
