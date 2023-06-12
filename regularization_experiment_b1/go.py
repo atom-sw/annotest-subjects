@@ -131,7 +131,7 @@ def main(nb_epoch=50, data_augmentation=False, noise=False, maxout=False, dropou
     # Create the model
     model = Sequential()
     if noise:
-        model.add(GaussianNoise(noise_sigma, input_shape=(32, 3, 3)))
+        model.add(GaussianNoise(noise_sigma, input_shape=(32, 3, 3)))  # repo_bug
     model.add(Convolution2D(32, 3, 3, input_shape=(3, 32, 32), activation='relu', border_mode='same'))
     if dropout:
         model.add(Dropout(0.2))
