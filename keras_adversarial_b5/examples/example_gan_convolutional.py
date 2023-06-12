@@ -7,13 +7,15 @@ from keras.layers import Dense, Reshape, Flatten, Dropout, LeakyReLU, Input, Act
 from keras.models import Sequential, Model
 from keras.layers.convolutional import Convolution2D, UpSampling2D
 from keras.optimizers import Adam
-from keras.regularizers import l1, l1l2
+# from keras.regularizers import l1, l1l2  # repo_change
 from keras.datasets import mnist
 import pandas as pd
 import numpy as np
 import keras.backend as K
-from adversarial import AdversarialModel, ImageGridCallback, simple_gan, gan_targets
-from adversarial import AdversarialOptimizerSimultaneous, normal_latent_sampling, AdversarialOptimizerAlternating
+# from adversarial import AdversarialModel, ImageGridCallback, simple_gan, gan_targets  # repo_change
+from keras_adversarial import AdversarialModel, ImageGridCallback, simple_gan, gan_targets  # repo_change
+# from adversarial import AdversarialOptimizerSimultaneous, normal_latent_sampling, AdversarialOptimizerAlternating  # repo_change
+from keras_adversarial import AdversarialOptimizerSimultaneous, normal_latent_sampling, AdversarialOptimizerAlternating  # repo_change
 
 
 def leaky_relu(x):
@@ -71,7 +73,7 @@ def model_discriminator(input_shape=(1, 28, 28), dropout_rate=0.5):
     d_input = dim_ordering_input(input_shape, name="input_x")
     nch = 512
     # nch = 128
-    H = Convolution2D(nch / 2, 5, 5, subsample=(2, 2), border_mode='same', activation='relu')(d_input)
+    H = Convolution2D(nch / 2, 5, 5, subsample=(2, 2), border_mode='same', activation='relu')(d_input)  # repo_bug
     H = LeakyReLU(0.2)(H)
     H = Dropout(dropout_rate)(H)
     H = Convolution2D(nch, 5, 5, subsample=(2, 2), border_mode='same', activation='relu')(H)
