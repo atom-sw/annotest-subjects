@@ -1,5 +1,5 @@
 from keras.engine import Layer, InputSpec
-from keras import initializations, regularizers
+from keras import initializations, regularizers  # repo_bug
 from keras import backend as K
 
 
