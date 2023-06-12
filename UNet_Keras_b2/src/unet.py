@@ -32,22 +32,31 @@ class UNet(object):
 
         self.MODEL = Model(inputs=inputs, outputs=outputs)
 
-    def __add_Encode_layers(self, filters, inputLayer):
-        layer = Conv2D(filters, (3, 3), strides=(
-            3, 3), activation='relu')(inputLayer)
-        layer = Conv2D(filters, (3, 3), strides=(
-            3, 3), activation='relu')(layer)
-        layer = MaxPooling2D((2, 2))(layer)
+    # def __add_Encode_layers(self, filters, inputLayer):  # repo_change
+    #     layer = Conv2D(filters, (3, 3), strides=(  # repo_change
+    #         3, 3), activation='relu')(inputLayer)  # repo_change
+    #     layer = Conv2D(filters, (3, 3), strides=(  # repo_change
+    #         3, 3), activation='relu')(layer)  # repo_change
+    #     layer = MaxPooling2D((2, 2))(layer)  # repo_change
+    def __add_Encode_layers(self, filters, inputLayer, is_first=False):  # repo_change
+        layer = inputLayer  # repo_change
+        if is_first:  # repo_change
+            layer = Conv2D(filters, 3, activation='relu',  # repo_change
+                           input_shape=(572, 572, 1))(layer)  # repo_change
+        else:  # repo_change
+            layer = MaxPooling2D(2)(layer)  # repo_change
+            layer = Conv2D(filters, 3, activation='relu')(layer)  # repo_change
+        layer = Conv2D(filters, 3, activation='relu')(layer)  # repo_change
         return layer
 
     def __add_Decode_layers(self, filters, inputLayer, concatLayer):
-        layer = UpSampling2D((2, 2))(inputLayer)
-        layer = Concatenate()([layer, concatLayer])
-        layer = Conv2D(filters, (3, 3), strides=(
-            3, 3), activation='relu')(layer)
-        layer = Conv2D(filters, (3, 3), strides=(
-            3, 3), activation='relu')(layer)
-        layer = MaxPooling2D((2, 2))(layer)
+        layer = UpSampling2D((2, 2))(inputLayer)  # repo_bug (not clear)
+        layer = Concatenate()([layer, concatLayer])  # repo_bug (not clear)
+        layer = Conv2D(filters, (3, 3), strides=(  # repo_bug (not clear)
+            3, 3), activation='relu')(layer)  # repo_bug (not clear)
+        layer = Conv2D(filters, (3, 3), strides=(  # repo_bug (not clear)
+            3, 3), activation='relu')(layer)  # repo_bug (not clear)
+        layer = MaxPooling2D((2, 2))(layer)  # repo_bug (not clear)
         return layer
 
     def model(self):
