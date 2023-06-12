@@ -1,5 +1,6 @@
 from keras.engine import Layer, InputSpec
-from keras import initializations, regularizers
+# from keras import initializations, regularizers  # repo_change
+from keras import initializers, regularizers  # repo_change
 from keras import backend as K
 
 
@@ -9,8 +10,9 @@ class FixedBatchNormalization(Layer):
                  weights=None, beta_init='zero', gamma_init='one',
                  gamma_regularizer=None, beta_regularizer=None, **kwargs):
         self.supports_masking = True
-        self.beta_init = initializations.get(beta_init)
-        self.gamma_init = initializations.get(gamma_init)
+        # self.beta_init = initializations.get(beta_init)  # repo_change
+        self.beta_init = initializers.get(beta_init)  # repo_change
+        self.gamma_init = initializations.get(gamma_init)  # repo_bug
         self.epsilon = epsilon
         self.axis = axis
         self.gamma_regularizer = regularizers.get(gamma_regularizer)

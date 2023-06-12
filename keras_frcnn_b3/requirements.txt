@@ -1,4 +1,4 @@
 h5py==2.6.0
-Keras==1.2.1
-numpy==1.12.0
-cv2==1.0
+keras==2.0.3
+opencv-python==3.4.0.14
+tensorflow==1.5
