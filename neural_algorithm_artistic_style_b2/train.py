@@ -28,7 +28,7 @@ input_tensor = Input(shape=(1,))
 image_layer = Dense((768 * 1024 * 3), activation='linear', use_bias=False)
 
 image_tensor = image_layer(input_tensor)
-reshaped_image = Reshape((768, 2014, 3))(image_tensor)
+reshaped_image = Reshape((768, 2014, 3))(image_tensor)  # repo_bug
 
 content_tensor, *style_tensors = featurization_model(reshaped_image)
 feature_tensors = [content_tensor, *style_tensors]
@@ -53,6 +53,7 @@ training_model.fit(
     np.ones([1, 1]),
     target_values,
     batch_size=1,
-    epochs=3000,
+    # epochs=3000,  # repo_change
+    epochs=1,  # repo_change
     callbacks=[LambdaCallback(on_epoch_end=save_int_image)]
 )
