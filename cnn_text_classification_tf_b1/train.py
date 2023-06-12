@@ -47,7 +47,10 @@ print("")
 
 # Load data
 print("Loading data...")
-x_text, y = data_helpers.load_data_and_labels(FLAGS.positive_data_file, FLAGS.negative_data_file)
+bug_id_data_directory_path = (os.path.expanduser('~') +  # repo_change
+                              "/annotest_subjects_data/cnn_text_classification_tf_b1/")  # repo_change
+x_text, y = data_helpers.load_data_and_labels(bug_id_data_directory_path + FLAGS.positive_data_file,  # repo_change
+                                              bug_id_data_directory_path + FLAGS.negative_data_file)  # repo_change
 
 # Build vocabulary
 max_document_length = max([len(x.split(" ")) for x in x_text])
@@ -97,7 +100,7 @@ with tf.Graph().as_default():
         grad_summaries = []
         for g, v in grads_and_vars:
             if g is not None:
-                grad_hist_summary = tf.histogram_summary("{}/grad/hist".format(v.name), g)
+                grad_hist_summary = tf.histogram_summary("{}/grad/hist".format(v.name), g)  # repo_bug
                 sparsity_summary = tf.scalar_summary("{}/grad/sparsity".format(v.name), tf.nn.zero_fraction(g))
                 grad_summaries.append(grad_hist_summary)
                 grad_summaries.append(sparsity_summary)
