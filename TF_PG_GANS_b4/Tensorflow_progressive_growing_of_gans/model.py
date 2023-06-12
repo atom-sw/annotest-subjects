@@ -8,7 +8,8 @@ from keras import activations
 from keras import initializers
 from keras.models import Model
 import numpy as np
-from layers import *
+# from layers import *  # repo_change
+from .layers import *
 
 linear, linear_init = activations.linear,       initializers.VarianceScaling(scale=1.0, mode='fan_in', distribution='normal')
 relu,   relu_init = activations.relu,         initializers.he_normal()
@@ -92,7 +93,7 @@ def Generator(num_channels=1,
     if label_size:
         inputs += [Input(shape=[None, label_size], name='Glabels')]
         net = Concatenate(name='Gina')([net, inputs[-1]])
-    net = Reshape((None, -1, 1, 1), name='G1nb')(net)
+    net = Reshape((None, -1, 1, 1), name='G1nb')(net)  # repo_bug
 
     net = G_convblock(net, numf(1), 4, act, act_init, pad='full', use_wscale=use_wscale,
                       use_batchnorm=use_batchnorm, use_pixelnorm=use_pixelnorm, name='G1a')
