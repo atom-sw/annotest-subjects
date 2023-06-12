@@ -78,7 +78,8 @@ class PixelNormLayer(Layer):
     def __init__(self,**kwargs):
         super(PixelNormLayer,self).__init__(**kwargs)
     def call(self, inputs, **kwargs):
-        return inputs / K.sqrt(K.mean(v**2, axis=1, keepdims=True) + 1.0e-8)
+        # return inputs / K.sqrt(K.mean(v**2, axis=1, keepdims=True) + 1.0e-8)  # repo_change
+        return inputs / K.sqrt(K.mean(inputs ** 2, axis=1, keepdims=True) + 1.0e-8)  # repo_change
     def compute_output_shape(self, input_shape):
         return input_shape
 
@@ -169,7 +170,7 @@ class WScaleLayer(Layer):
         kernel = K.get_value(self.incoming.kernel)
         scale = np.sqrt(np.mean(kernel ** 2))
         K.set_value(self.incoming.kernel,kernel/scale)
-        self.scale=self.add_weight(name = 'scale',shape = scale.shape,trainable=False)
+        self.scale=self.add_weight(name = 'scale',shape = scale.shape,trainable=False)  # repo_bug
         K.set_value(self.scale,scale)
         if  hasattr(self.incoming, 'bias') and self.incoming.bias is not None:
             bias = K.get_value(self.incoming.bias)

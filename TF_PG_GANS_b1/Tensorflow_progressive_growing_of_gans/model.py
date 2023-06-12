@@ -8,7 +8,8 @@ from keras import activations
 from keras import initializers
 from keras.models import Model
 import numpy as np
-from layers import *
+# from layers import *  # repo_change
+from .layers import *  # repo_change
 
 linear, linear_init = activations.linear,       initializers.VarianceScaling(scale=1.0, mode='fan_in', distribution='normal')
 relu,   relu_init = activations.relu,         initializers.he_normal()
@@ -23,17 +24,20 @@ def G_convblock(net,
         filter_size,
         actv,
         init,
-        pad='same',
+        # pad='same',  # repo_change
+        pad='full',  # repo_change
         use_wscale=True,
         use_pixelnorm=True,
         use_batchnorm=False,
-        name=None):
+        # name=None):  # repo_change
+        name = "SomeOtherName"):  # repo_change
     if pad == 'full':
         pad = filter_size - 1
     Pad = ZeroPadding2D(pad, name=name + 'Pad')
     net = Pad(net)
-    Conv = Conv2D(num_filter, filter_size, padding='same',
-                  activation=actv, kernel_initializer=init, name=name)
+    # Conv = Conv2D(num_filter, filter_size, padding='same',  # repo_change
+    #               activation=actv, kernel_initializer=init, name=name)  # repo_change
+    Conv = Conv2D(num_filter, filter_size, padding='valid', activation=actv, kernel_initializer=init, name=name)  # repo_change
     net = Conv(net)
     if use_wscale:
         Wslayer = WScaleLayer(Conv, name=name + 'WS')
