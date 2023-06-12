@@ -53,8 +53,7 @@ export ANACONDA3_DIRECTORY=~/anaconda3
 ```
 git clone git@github.com:mohrez86/annotest-subjects.git
 
-cd annotest-subjects-dev
-git checkout dev
+cd annotest-subjects
 ```
 
 4. For each bug, there is a directory in the repo.
