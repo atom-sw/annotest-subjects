@@ -169,19 +169,21 @@ class WScaleLayer(Layer):
         kernel = K.get_value(self.incoming.kernel)
         scale = np.sqrt(np.mean(kernel ** 2))
         K.set_value(self.incoming.kernel,kernel/scale)
-        self.scale=self.add_weight(name = 'scale',shape = scale.shape,trainable=False)
+        # self.scale=self.add_weight(name = 'scale',shape = scale.shape,trainable=False)  # repo_change
+        self.scale = self.add_weight(name='scale', shape=scale.shape, trainable=False, initializer='zeros')  # repo_change
         K.set_value(self.scale,scale)
         if  hasattr(self.incoming, 'bias') and self.incoming.bias is not None:
             bias = K.get_value(self.incoming.bias)
-            self.bias=self.add_weight(name = 'bias',shape = bias.shape)
-            del self.incoming.trainable_weights[self.incoming.bias]
+            # self.bias=self.add_weight(name = 'bias',shape = bias.shape)  # repo_change
+            self.bias = self.add_weight(name='bias', shape=bias.shape, initializer='zeros')  # repo_change
+            # del self.incoming.trainable_weights[self.incoming.bias]  # repo_change
             self.incoming.bias = None
         
     def call(self, input, **kwargs):
         input = input * self.scale
         if self.bias is not None:
             pattern = ['x'] + ['x'] * (K.ndim(input) - 2)+[0]
-            input = input + K.permute_dimensions(self.bias,*pattern)
+            input = input + K.permute_dimensions(self.bias,*pattern)  # repo_bug
         return self.activation(input)
     def compute_output_shape(self, input_shape):
         return input_shape
