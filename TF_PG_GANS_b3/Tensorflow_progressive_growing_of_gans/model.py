@@ -8,7 +8,8 @@ from keras import activations
 from keras import initializers
 from keras.models import Model
 import numpy as np
-from layers import *
+# from layers import *  # repo_change
+from .layers import *  # repo_change
 
 linear, linear_init = activations.linear,       initializers.VarianceScaling(scale=1.0, mode='fan_in', distribution='normal')
 relu,   relu_init = activations.relu,         initializers.he_normal()
@@ -152,7 +153,7 @@ def Discriminator(num_channels=1,        # Overridden based on dataset.
             init,
             name=None):
         layer = Conv2D(num_channels, 1, activation=actv,
-                       kernel_initializer=init, pad='same', name=name + 'NIN')
+                       kernel_initializer=init, pad='same', name=name + 'NIN')  # repo_bug
         net = layer(net)
         if use_wscale:
             layer = WScaleLayer(layer, name=name + 'NINWS')
