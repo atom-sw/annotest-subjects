@@ -144,7 +144,7 @@ def ThinPlateSpline(U, coord, vector, out_size):
     num_point  = tf.shape(coord)[1]
     
     ones = tf.ones([num_batch, num_point, 1], dtype="float32")
-    p = tf.concat(2, [ones, coord]) # [bn, pn, 3]
+    p = tf.concat(2, [ones, coord]) # [bn, pn, 3]  # repo_bug
 
     p_1 = tf.reshape(p, [num_batch, -1, 1, 3]) # [bn, pn, 1, 3]
     p_2 = tf.reshape(p, [num_batch, 1, -1, 3]) # [bn, 1, pn, 3]
