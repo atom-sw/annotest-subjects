@@ -1,3 +1,13 @@
+# Mirrors
+
+The current repository is a public mirror of
+our internal private repository.
+We have two public mirrors, which are as follows:
+
+- https://github.com/atom-sw/annotest-subjects
+- https://github.com/mohrez86/annotest-subjects
+
+
 # aNNoTest subjects
 
 The current repository contains 64 bugs collected by Islam et al. (2019),
