@@ -101,7 +101,7 @@ run the following command:
 ## Citations
 
 [aNNoTest's Journal 
-Paper:](https://www.sciencedirect.com/science/article/pii/S016412122300064X?via%3Dihub)
+Paper:](https://doi.org/10.1016/j.jss.2023.111669)
 
 ```
 @article{Rezaalipour:2023,
@@ -117,3 +117,12 @@ author = {Mohammad Rezaalipour and Carlo A. Furia},
 keywords = {Test generation, Neural networks, Debugging, Python},
 }
 ```
+
+# Mirrors
+
+The current repository is a public mirror of
+our internal private repository.
+We have two public mirrors, which are as follows:
+
+- https://github.com/atom-sw/annotest-subjects
+- https://github.com/mohrez86/annotest-subjects
