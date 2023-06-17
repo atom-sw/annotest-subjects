@@ -18,10 +18,29 @@ from keras.layers import Activation, Convolution2D, Dropout, GlobalAveragePoolin
 from keras.layers.normalization import BatchNormalization
 from keras.regularizers import l2
 
+from annotest import an_language as an
 
 __version__ = '0.0.1'
 
 
+@an.arg("input_shape", an.tuples(an.integers(min_value=20, max_value=70),
+                                 an.integers(min_value=20, max_value=70),
+                                 an.integers(min_value=1, max_value=3)))
+@an.arg("dense_blocks", an.integers(min_value=1, max_value=5))
+@an.arg("dense_layers", an.multiple(an.sampled([-1]),
+                                    an.integers(min_value=1, max_value=5),
+                                    an.integer_lists(min_len=2, max_len=5, min_value=2, max_value=5)))
+@an.arg("growth_rate", an.integers(min_value=1, max_value=20))
+@an.arg("nb_classes", an.integers(min_value=2, max_value=22))
+@an.arg("dropout_rate", an.floats(min_value=0, max_value=1, exclude_min=True, exclude_max=True))
+@an.arg("bottleneck", an.sampled([True, False]))
+@an.arg("compression", an.floats(min_value=0, max_value=1, exclude_min=True))
+@an.arg("weight_decay", an.floats(min_value=1e-4, max_value=1e-2))
+@an.arg("depth", an.integers(min_value=10, max_value=100))
+@an.precondition("not (nb_classes == None)")
+@an.precondition("not (compression <= 0.0 or compression > 1.0)")
+@an.precondition("not ((type(dense_layers) is list) and (len(dense_layers) != dense_blocks))")
+@an.precondition("not (input_shape is None)")  # to prevent master bug 1
 def DenseNet(input_shape=None, dense_blocks=3, dense_layers=-1, growth_rate=12, nb_classes=None, dropout_rate=None,
              bottleneck=False, compression=1.0, weight_decay=1e-4, depth=40):
     """
