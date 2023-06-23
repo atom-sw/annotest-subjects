@@ -22,6 +22,8 @@ from keras import regularizers
 from keras.layers.core import Flatten
 from keras.layers.normalization import BatchNormalization
 
+from annotest import an_language as an
+
 train_data_dir = 'train'
 val_data_dir = 'val'
 nb_train_samples = 8144
@@ -62,6 +64,14 @@ def serializeModel(model, fileName):
     model.save_weights(fileName + ".h5")
     print("Saved model to disk")
 
+
+@an.arg("learningRate", an.floats(min_value=0, max_value=0.002, exclude_min=True))
+@an.arg("optimazerLastLayer", an.sampled(["ADAGRAD", "ADADELTA", "ADAM", "RMSPROP", "MOM"]))
+@an.arg("noOfEpochs", an.sampled([1]))
+@an.arg("batchSize", an.sampled([64]))
+@an.arg("savedModelName", an.sampled(["SomeName"]))
+@an.arg("srcImagesDir", an.sampled([os.path.expanduser('~') + "/annotest_subjects_data/car_recognition_b1/car_ims"]))
+@an.arg("labelsFile", an.sampled([os.path.expanduser('~') + "/annotest_subjects_data/car_recognition_b1/cars_annos.mat"]))
 def model(learningRate, optimazerLastLayer, noOfEpochs, batchSize, savedModelName, srcImagesDir, labelsFile):
     
     classes = readClasses(labelsFile)

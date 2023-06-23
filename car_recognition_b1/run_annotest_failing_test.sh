@@ -5,10 +5,15 @@ set -e
 
 # Parameters
 BUG_ID="car_recognition_b1"
+TEST_NAME_FILE_NAME="annotest_test_name.txt"
 
 # Activate virtual environment
 source "$ANACONDA3_DIRECTORY"/etc/profile.d/conda.sh
 conda activate "$BUG_ID"
 
 # Run manual test
-python -m pytest tests_manual/test_failing.py::test_failing
+python -m pip --version
+TEST_NAME=$(<"$TEST_NAME_FILE_NAME")
+echo "$TEST_NAME"
+
+python -m pytest "$TEST_NAME"
