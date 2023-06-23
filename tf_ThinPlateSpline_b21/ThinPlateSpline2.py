@@ -1,6 +1,57 @@
 import tensorflow as tf
 import numpy as np
 
+from annotest import an_language as an
+
+import os
+Path_to_file = (os.path.expanduser('~') + "/annotest_subjects_data/tf_ThinPlateSpline_b13/original.png")
+
+
+@an.generator()
+@an.exclude()
+def generator_ThinPlateSpline2_U():
+    from PIL import Image
+    img = np.array(Image.open("original.png"))
+    out_size = list(img.shape)
+    shape = [1] + out_size + [1]
+
+    t_img = tf.constant(img.reshape(shape), dtype=tf.float32)
+
+    return t_img
+
+
+@an.generator()
+@an.exclude()
+def generator_ThinPlateSpline2_source():
+    s_ = np.array([  # source position
+        [-0.5, -0.5],
+        [0.5, -0.5],
+        [-0.5, 0.5],
+        [0.5, 0.5]])
+
+    s = tf.constant(s_.reshape([1, 4, 2]), dtype=tf.float32)
+
+    return s
+
+
+@an.generator()
+@an.exclude()
+def generator_ThinPlateSpline2_target():
+    t_ = np.array([  # target position
+        [-0.3, -0.3],
+        [0.3, -0.3],
+        [-0.3, 0.3],
+        [0.3, 0.3]])
+
+    t = tf.constant(t_.reshape([1, 4, 2]), dtype=tf.float32)
+
+    return t
+
+
+@an.arg("U", an.obj(generator_ThinPlateSpline2_U))
+@an.arg("source", an.obj(generator_ThinPlateSpline2_source))
+@an.arg("target", an.obj(generator_ThinPlateSpline2_target))
+@an.arg("out_size", an.sampled([[256, 263]]))
 def ThinPlateSpline2(U, source, target, out_size):
   """Thin Plate Spline Spatial Transformer Layer
   TPS control points are arranged in arbitrary positions given by `source`.
