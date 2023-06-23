@@ -1,6 +1,68 @@
 import tensorflow as tf
 import numpy as np
 
+from annotest import an_language as an
+
+
+import os
+Path_to_file = (os.path.expanduser('~') + "/annotest_subjects_data/tf_ThinPlateSpline_b1/original.png")
+
+
+@an.exclude()
+@an.generator()
+def generator_ThinPlateSpline_U():
+    from PIL import Image
+    img = np.array(Image.open(Path_to_file))
+    out_size = list(img.shape)
+    shape = [1] + out_size + [1]
+
+    t_img = tf.constant(img.reshape(shape), dtype=tf.float32)
+
+    return t_img
+
+
+@an.exclude()
+@an.generator()
+def generator_ThinPlateSpline_coord():
+    p = np.array([
+        [-0.5, -0.5],
+        [0.5, -0.5],
+        [-0.5, 0.5],
+        [0.5, 0.5]])
+
+    p = tf.constant(p.reshape([1, 4, 2]), dtype=tf.float32)
+
+    return p
+
+
+@an.exclude()
+@an.generator()
+def generator_ThinPlateSpline_vector():
+    v = np.array([
+        [0.2, 0.2],
+        [0.4, 0.4],
+        [0.6, 0.6],
+        [0.8, 0.8]])
+
+    v = tf.constant(v.reshape([1, 4, 2]), dtype=tf.float32)
+
+    return v
+
+
+@an.exclude()
+@an.generator()
+def generator_ThinPlateSpline_out_size():
+    from PIL import Image
+    img = np.array(Image.open(Path_to_file))
+    out_size = list(img.shape)
+
+    return out_size
+
+
+@an.arg("U", an.obj(generator_ThinPlateSpline_U))
+@an.arg("coord", an.obj(generator_ThinPlateSpline_coord))
+@an.arg("vector", an.obj(generator_ThinPlateSpline_vector))
+@an.arg("out_size", an.obj(generator_ThinPlateSpline_out_size))
 def ThinPlateSpline(U, coord, vector, out_size):
   """Thin Plate Spline Spatial Transformer Layer
   TPS control points are arranged in arbitrary positions given by `coord`.
