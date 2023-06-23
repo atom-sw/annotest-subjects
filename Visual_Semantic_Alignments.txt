@@ -1,0 +1,8 @@
+The current version of aNNoTest cannot reproduce this bug.
+
+internal_id: repo32:253
+framework: Keras
+project: Visual-Semantic-Alignments
+acronym: VSA
+type: known
+link: https://github.com/Spider101/Visual-Semantic-Alignments/commit/fc0651abcfb3b7e4b2b6ba031b1818e8f9121284?diff=unified#diff-0e339fbbbab751eec14cdd0cfea4a4b4b6c549f0059a5131dbf979c2a1591c82L13
