@@ -13,7 +13,7 @@ following paper:
 
 [An annotation-based approach for 
 finding bugs in neural network programs, by
-Mohammad Rezaalipour and Carlo A. Furia.](#Citations).
+Mohammad Rezaalipour and Carlo A. Furia.](#13-citations).
 
 ## 1.1 Bugs information
 
