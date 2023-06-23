@@ -1,0 +1,1 @@
+ValueError: Tried to convert 'shape' to a tensor and failed. Error: None values not supported.

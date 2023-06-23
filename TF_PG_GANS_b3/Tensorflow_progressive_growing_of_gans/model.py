@@ -9,7 +9,9 @@ from keras import initializers
 from keras.models import Model
 import numpy as np
 # from layers import *  # repo_change
-from .layers import *  # repo_change
+from .layers import *
+
+from annotest import an_language as an
 
 linear, linear_init = activations.linear,       initializers.VarianceScaling(scale=1.0, mode='fan_in', distribution='normal')
 relu,   relu_init = activations.relu,         initializers.he_normal()
@@ -63,6 +65,19 @@ def NINblock(net,
     return net
 
 
+@an.arg("num_channels", an.integers(min_value=1))
+@an.arg("resolution", an.sampled([4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096]))
+@an.arg("label_size", an.integers(max_value=10))
+@an.arg("fmap_base", an.sampled([4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096]))
+@an.arg("fmap_decay", an.floats(min_value=0, max_value=1, exclude_min=True))
+@an.arg("fmap_max", an.sampled([4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096]))
+@an.arg("latent_size", an.integers(min_value=1))
+@an.arg("normalize_latents", an.sampled([True, False]))
+@an.arg("use_wscale", an.sampled([True, False]))
+@an.arg("use_pixelnorm", an.sampled([True, False]))
+@an.arg("use_leakyrelu", an.sampled([True, False]))
+@an.arg("use_batchnorm", an.sampled([True, False]))
+@an.arg("tanh_at_end", an.floats(min_value=0, max_value=2.0))
 def Generator(num_channels=1,
         resolution=32,
         label_size=0,
@@ -93,7 +108,7 @@ def Generator(num_channels=1,
     if label_size:
         inputs += [Input(shape=[None, label_size], name='Glabels')]
         net = Concatenate(name='Gina')([net, inputs[-1]])
-    net = Reshape((None, -1, 1, 1), name='G1nb')(net)
+    net = Reshape((None, -1, 1, 1), name='G1nb')(net)  # repo_bug
 
     net = G_convblock(net, numf(1), 4, act, act_init, pad='full', use_wscale=use_wscale,
                       use_batchnorm=use_batchnorm, use_pixelnorm=use_pixelnorm, name='G1a')
@@ -153,7 +168,7 @@ def Discriminator(num_channels=1,        # Overridden based on dataset.
             init,
             name=None):
         layer = Conv2D(num_channels, 1, activation=actv,
-                       kernel_initializer=init, pad='same', name=name + 'NIN')  # repo_bug
+                       kernel_initializer=init, pad='same', name=name + 'NIN')
         net = layer(net)
         if use_wscale:
             layer = WScaleLayer(layer, name=name + 'NINWS')
