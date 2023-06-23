@@ -1,0 +1,1 @@
+test_annotest/keras_frcnn/test_FixedBatchNormalization.py::Test_FixedBatchNormalization::test_init

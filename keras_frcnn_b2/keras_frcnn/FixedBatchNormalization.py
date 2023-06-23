@@ -3,9 +3,12 @@ from keras.engine import Layer, InputSpec
 from keras import initializers, regularizers  # repo_change
 from keras import backend as K
 
+from annotest import an_language as an
+
 
 class FixedBatchNormalization(Layer):
 
+    @an.arg("axis", an.sampled([-1, 1, 3]))
     def __init__(self, epsilon=1e-3, axis=-1,
                  weights=None, beta_init='zero', gamma_init='one',
                  gamma_regularizer=None, beta_regularizer=None, **kwargs):
