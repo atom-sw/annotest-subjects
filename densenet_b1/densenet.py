@@ -40,7 +40,7 @@ __version__ = '0.0.1'
 @an.precondition("not (nb_classes == None)")
 @an.precondition("not (compression <= 0.0 or compression > 1.0)")
 @an.precondition("not ((type(dense_layers) is list) and (len(dense_layers) != dense_blocks))")
-@an.precondition("not (input_shape is None)")  # to prevent master bug 1
+@an.precondition("not (input_shape is None)")
 def DenseNet(input_shape=None, dense_blocks=3, dense_layers=-1, growth_rate=12, nb_classes=None, dropout_rate=None,
              bottleneck=False, compression=1.0, weight_decay=1e-4, depth=40):
     """
