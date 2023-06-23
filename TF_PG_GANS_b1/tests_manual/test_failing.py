@@ -1,39 +1,20 @@
-from keras import Input
-from keras.layers import Concatenate, Reshape
-import keras.backend as K
-
-from Tensorflow_progressive_growing_of_gans.layers import PixelNormLayer
-from Tensorflow_progressive_growing_of_gans.model import G_convblock, lrelu, lrelu_init
-
-
-def generator_G_convblock_net(label_size, latent_size, normalize_latents):
-    inputs = [Input(shape=[latent_size], name='Glatents')]
-    net = inputs[-1]
-    if normalize_latents:
-        net = PixelNormLayer(name='Gnorm')(net)
-    if label_size:
-        inputs += [Input(shape=[label_size], name='Glabels')]
-        net = Concatenate(name='G1na')([net, inputs[-1]])
-    net = Reshape((1, 1, K.int_shape(net)[1]), name='G1nb')(net)
-    return net
+from Tensorflow_progressive_growing_of_gans.model import Discriminator
 
 
 def test_failing():
-    co_net_label_size = 0
-    co_net_latent_size = 1
-    co_net_normalize_latents = True
-    net = generator_G_convblock_net(co_net_label_size,
-                                    co_net_latent_size,
-                                    co_net_normalize_latents)
-    num_filter = 296
-    filter_size = 1
-    actv = lrelu
-    init = lrelu_init
-    pad = 'full'
+    num_channels = 1
+    resolution = 32
+    label_size = 0
+    fmap_base = 4096
+    fmap_decay = 1.0
+    fmap_max = 256
+    mbstat_func = 'Tstdeps'
+    mbstat_avg = 'all'
+    mbdisc_kernels = None
     use_wscale = True
-    use_pixelnorm = True
-    use_batchnorm = False
-    name = 'SomeName'
+    use_gdrop = True
+    use_layernorm = False
 
-    G_convblock(net, num_filter, filter_size, actv, init, pad,
-                use_wscale, use_pixelnorm, use_batchnorm, name)
+    Discriminator(num_channels, resolution, label_size, fmap_base,
+                  fmap_decay, fmap_max, mbstat_func, mbstat_avg, mbdisc_kernels,
+                  use_wscale, use_gdrop, use_layernorm)

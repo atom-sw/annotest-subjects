@@ -21,4 +21,3 @@ KERAS_CONF_JSON=~/.keras/keras.json
 if [[ -f "$KERAS_CONF_JSON" ]]; then
     rm "$KERAS_CONF_JSON"
 fi
-

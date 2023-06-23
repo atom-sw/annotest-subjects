@@ -11,6 +11,8 @@ import numpy as np
 # from layers import *  # repo_change
 from .layers import *  # repo_change
 
+from annotest import an_language as an
+
 linear, linear_init = activations.linear,       initializers.VarianceScaling(scale=1.0, mode='fan_in', distribution='normal')
 relu,   relu_init = activations.relu,         initializers.he_normal()
 lrelu,  lrelu_init = lambda x: K.relu(x, 0.2),  initializers.he_normal()
@@ -24,20 +26,17 @@ def G_convblock(net,
         filter_size,
         actv,
         init,
-        # pad='same',  # repo_change
-        pad='full',  # repo_change
+        pad='same',
         use_wscale=True,
         use_pixelnorm=True,
         use_batchnorm=False,
-        # name=None):  # repo_change
-        name = "SomeOtherName"):  # repo_change
+        name=None):
     if pad == 'full':
         pad = filter_size - 1
     Pad = ZeroPadding2D(pad, name=name + 'Pad')
     net = Pad(net)
-    # Conv = Conv2D(num_filter, filter_size, padding='same',  # repo_change
-    #               activation=actv, kernel_initializer=init, name=name)  # repo_change
-    Conv = Conv2D(num_filter, filter_size, padding='valid', activation=actv, kernel_initializer=init, name=name)  # repo_change
+    Conv = Conv2D(num_filter, filter_size, padding='same',
+                  activation=actv, kernel_initializer=init, name=name)
     net = Conv(net)
     if use_wscale:
         Wslayer = WScaleLayer(Conv, name=name + 'WS')
@@ -122,6 +121,18 @@ def Generator(num_channels=1,
     model = Model(inputs=inputs, outputs=[output])
 
 
+@an.arg("num_channels", an.integers(min_value=1))
+@an.arg("resolution", an.sampled([4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096]))
+@an.arg("label_size", an.integers(max_value=10))
+@an.arg("fmap_base", an.sampled([4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096]))
+@an.arg("fmap_decay", an.floats(min_value=0, max_value=1, exclude_min=True))
+@an.arg("fmap_max", an.sampled([4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096]))
+@an.arg("mbstat_func", an.sampled(['Tstdeps']))
+@an.arg("mbstat_avg", an.sampled([None, 'all', 'flat', 'spatial', 'none', 'gpool']))
+@an.arg("mbdisc_kernels", an.multiple(an.integers(), None))
+@an.arg("use_wscale", an.sampled([True, False]))
+@an.arg("use_gdrop", an.sampled([True, False]))
+@an.arg("use_layernorm", an.sampled([True, False]))
 def Discriminator(num_channels=1,        # Overridden based on dataset.
         resolution=32,       # Overridden based on dataset.
         label_size=0,        # Overridden based on dataset.
@@ -155,8 +166,10 @@ def Discriminator(num_channels=1,        # Overridden based on dataset.
             actv,
             init,
             name=None):
-        layer = Conv2D(num_channels, 1, activation=actv,
-                       kernel_initializer=init, pad='same', name=name + 'NIN')
+        # layer = Conv2D(num_channels, 1, activation=actv,  # repo_change
+        #                kernel_initializer=init, pad='same', name=name + 'NIN')  # repo_change
+        layer = Conv2D(num_channels, 1, activation=actv,  # repo_change
+                       kernel_initializer=init, padding='same', name=name + 'NIN')  # repo_change
         net = layer(net)
         if use_wscale:
             layer = WScaleLayer(layer, name=name + 'NINWS')
@@ -185,7 +198,8 @@ def Discriminator(num_channels=1,        # Overridden based on dataset.
             net = layer(net)
         return net
 
-    inputs = Input(shape=[None, 2**R, 2**R,num_channels], name='Dimages')
+    # inputs = Input(shape=[None, 2**R, 2**R,num_channels], name='Dimages')  # repo_change
+    inputs = Input(shape=[2 ** R, 2 ** R, num_channels], name='Dimages')  # repo_change
     net = NINBlock(inputs, numf(R-1), lrelu, lrelu_init, name='D%dx' % (R-1))
     for i in range(R-1, 1, -1):
         net = ConvBlock(net, numf(i), 3, lrelu, lrelu_init, 1, name='D%db' % i)
