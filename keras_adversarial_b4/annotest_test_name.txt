@@ -1,0 +1,1 @@
+test_annotest/examples/test_example_gan_convolutional.py::Test_TopLevelFunctions::test_model_generator

@@ -1,0 +1,1 @@
+TypeError: Value passed to parameter 'shape' has DataType float32 not in list of allowed values: int32, int64
