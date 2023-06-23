@@ -1,4 +1,4 @@
-from Tensorflow_progressive_growing_of_gans.model import Generator
+from Tensorflow_progressive_growing_of_gans.model import Discriminator
 
 
 def test_failing():
@@ -8,15 +8,13 @@ def test_failing():
     fmap_base = 4096
     fmap_decay = 1.0
     fmap_max = 256
-    latent_size = None
-    normalize_latents = True
+    mbstat_func = 'Tstdeps'
+    mbstat_avg = 'all'
+    mbdisc_kernels = None
     use_wscale = True
-    use_pixelnorm = True
-    use_leakyrelu = True
-    use_batchnorm = False
-    tanh_at_end = None
+    use_gdrop = True
+    use_layernorm = False
 
-    Generator(num_channels, resolution, label_size, fmap_base,
-              fmap_decay, fmap_max, latent_size, normalize_latents,
-              use_wscale, use_pixelnorm, use_leakyrelu, use_batchnorm,
-              tanh_at_end)
+    Discriminator(num_channels, resolution, label_size, fmap_base,
+                  fmap_decay, fmap_max, mbstat_func, mbstat_avg, mbdisc_kernels,
+                  use_wscale, use_gdrop, use_layernorm)
