@@ -18,6 +18,8 @@ import keras.backend as K
 # from mnist_utils import mnist_data  # repo_change
 from .mnist_utils import mnist_data  # repo_change
 
+from annotest import an_language as an
+
 
 def model_generator(latent_dim, input_shape, hidden_dim=1024, reg=lambda: l1l2(1e-5, 1e-5)):
     return Sequential([
@@ -33,6 +35,8 @@ def model_generator(latent_dim, input_shape, hidden_dim=1024, reg=lambda: l1l2(1
         name="generator")
 
 
+@an.arg("input_shape", an.array_shapes(min_dims=2, max_dims=2, min_side=1, max_side=28))
+@an.arg("hidden_dim", an.integers(min_value=1024, max_value=2048))
 def model_discriminator(input_shape, hidden_dim=1024, reg=lambda: l1l2(1e-5, 1e-5), output_activation="sigmoid"):
     return Sequential([
         Flatten(name="discriminator_flatten", input_shape=input_shape),
