@@ -1,0 +1,1 @@
+ValueError: A `Concatenate` layer requires inputs with matching shapes except for the concat axis. Got inputs shapes: [(None, 6, 6, 1024), (None, 28, 28, 512)]
