@@ -2,6 +2,10 @@ from keras.engine import Layer, InputSpec
 from keras import initializations, regularizers  # repo_bug
 from keras import backend as K
 
+ from annotest import an_language as an
+
+an.annotest_module_test()
+
 
 class FixedBatchNormalization(Layer):
 
