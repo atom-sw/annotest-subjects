@@ -5,6 +5,8 @@ import time
 import cv2
 from keras.preprocessing.image import ImageDataGenerator
 
+from annotest import an_language as an
+
 # data = h5py.File('data.h5', 'r')  # repo_change
 import os  # repo_change
 path_to_data = (os.path.expanduser('~') +  # repo_change
@@ -52,6 +54,7 @@ def get_data_gen_args(mode):
 
 
 # One hot encoding for y_img.
+@an.arg("y_img", an.np_arrays(dtype=np.dtype("float32"), shape=an.sampled([(4, 256, 512, 1)])))
 def get_result_map(y_img):
     # result_map = np.zeros((256, 512, 4))  # repo_change
     y_img = np.squeeze(y_img, axis=3)  # repo_change
