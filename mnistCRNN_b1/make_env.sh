@@ -11,6 +11,7 @@ conda create -n "$BUG_ID" python=3.6 -y
 source "$ANACONDA3_DIRECTORY/etc/profile.d/conda.sh"
 conda activate "$BUG_ID"
 pip install --upgrade pip
+conda install mkl-service -y
 
 # Install requirements
 pip install -r requirements.txt

@@ -19,6 +19,10 @@ from keras.layers.wrappers import TimeDistributed
 from keras.models import model_from_json
 #import json
 
+from annotest import an_language as an
+
+an.annotest_module_test()
+
 #define some run parameters
 batch_size      = 32
 nb_epochs       = 20
@@ -73,8 +77,8 @@ for ep in range(0,nb_epochs):
     X_train       = []
     y_train       = []
     X_test        = []
-    y_test        = []    
-    
+    y_test        = []
+
     X_train     = np.zeros((examplesPer,maxToAdd,1,size,size))
 
     for i in range(0,examplesPer):
@@ -92,11 +96,11 @@ for ep in range(0,nb_epochs):
         y_train.append(np.sum(exampleY))
 
     y_train     = np.array(y_train)
-    
+
     if ep == 0:
         print("X_train shape: ",X_train.shape)
         print("y_train shape: ",y_train.shape)
-    
+
     model.fit(X_train, y_train, batch_size=batch_size, nb_epoch=1,
               verbose=1)
 
@@ -113,11 +117,11 @@ for i in range(0,examplesPer):
     y_test.append(np.sum(exampleY))
 
 X_test  = np.array(X_test)
-y_test  = np.array(y_test)       
+y_test  = np.array(y_test)
 
 preds   = model.predict(X_test)
 
-#print the results of the test    
+#print the results of the test
 print(np.sum(np.sqrt(np.mean([ (y_test[i] - preds[i][0])**2 for i in range(0,len(preds)) ]))))
 print("naive guess", np.sum(np.sqrt(np.mean([ (y_test[i] - np.mean(y_test))**2 for i in range(0,len(y_test)) ]))))
 

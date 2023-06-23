@@ -1,0 +1,1 @@
+test_annotest/scripts/test_addMNISTrnn.py::test_ImportModule::test_import_module
