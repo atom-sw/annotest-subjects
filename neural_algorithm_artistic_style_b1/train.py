@@ -7,6 +7,10 @@ import keras.backend as K
 from utils import load_image, save_image
 import numpy as np
 
+from annotest import an_language as an
+
+an.annotest_module_test()
+
 print("Calculating content features")
 content_im_data = load_image('./input/content_mit.jpg')
 content_value, *_ = featurization_model.predict(
