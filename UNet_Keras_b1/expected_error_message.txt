@@ -1,0 +1,1 @@
+ValueError: Negative dimension size caused by subtracting 3 from 1 for 'conv2d_5/convolution' (op: 'Conv2D') with input shapes: [?,1,1,128], [3,3,128,256].

@@ -4,6 +4,15 @@ from keras.layers.convolutional import Conv2D, UpSampling2D
 from keras.layers.pooling import MaxPooling2D
 from keras.layers.merge import Concatenate
 
+from annotest import an_language as an
+
+
+@an.generator()
+@an.exclude()
+def generator_UNet__add_encode_layers_input_layer():
+    layer = Input((258, 258, 3))
+    return layer
+
 
 class UNet(object):
     def __init__(self):
@@ -32,6 +41,9 @@ class UNet(object):
 
         self.MODEL = Model(inputs=inputs, outputs=outputs)
 
+    @an.arg("filters", an.sampled([32, 64, 128, 256, 512]))
+    @an.arg("inputLayer", an.obj(generator_UNet__add_encode_layers_input_layer))
+    @an.arg("is_first", an.sampled([True, False]))
     def __add_Encode_layers(self, filters, inputLayer):
         layer = Conv2D(filters, (3, 3), strides=(  # repo_bug (not clear)
             3, 3), activation='relu')(inputLayer)  # repo_bug (not clear)
