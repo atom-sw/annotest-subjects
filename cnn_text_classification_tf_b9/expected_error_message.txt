@@ -1,0 +1,1 @@
+AttributeError: module 'tensorflow.python.training.training' has no attribute 'SummaryWriter'
