@@ -1,0 +1,1 @@
+Exception: The shape of the input to "Flatten" is not fully defined (got (128, 0, 0). Make sure to pass a complete "input_shape" or "batch_input_shape" argument to the first layer in your model.

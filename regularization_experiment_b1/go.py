@@ -32,6 +32,8 @@ import data_loader
 import time
 import numpy
 
+from annotest import an_language as an
+
 batch_size = 32
 nb_classes = 10
 nb_epoch = 100
@@ -76,7 +78,24 @@ def parse_arg():
     (options, args) = parser.parse_args()
     return options
 
-def main(nb_epoch=50, data_augmentation=False, noise=False, maxout=False, dropout=True, l1_reg=False, l2_reg=True, max_pooling=True, deep=False, noise_sigma=0.01, weight_constraint=True):
+
+@an.arg("nb_epoch", an.sampled([1, 2, 3, 4, 5]))
+@an.arg("data_augmentation", an.sampled([True, False]))
+@an.arg("noise", an.sampled([True, False]))
+@an.arg("maxout", an.sampled([True, False]))
+@an.arg("dropout", an.sampled([True, False]))
+@an.arg("l1_reg", an.sampled([True, False]))
+@an.arg("l2_reg", an.sampled([True, False]))
+@an.arg("max_pooling", an.sampled([True, False]))
+@an.arg("deep", an.sampled([True, False]))
+@an.arg("noise_sigma", an.floats(min_value=0, max_value=1, exclude_min=True, exclude_max=True))
+@an.arg("weight_constraint", an.sampled([True, False]))
+@an.arg("l1_weight", an.floats(min_value=0, max_value=1, exclude_min=True, exclude_max=True))
+@an.arg("l2_weight", an.floats(min_value=0, max_value=1, exclude_min=True, exclude_max=True))
+@an.precondition("not (l1_reg and l2_reg)")
+@an.precondition("not (weight_constraint and l2_reg)")
+# def main(nb_epoch=50, data_augmentation=False, noise=False, maxout=False, dropout=True, l1_reg=False, l2_reg=True, max_pooling=True, deep=False, noise_sigma=0.01, weight_constraint=True):  # repo_change
+def main(nb_epoch=1, data_augmentation=False, noise=False, maxout=False, dropout=True, l1_reg=False, l2_reg=True, max_pooling=True, deep=False, noise_sigma=0.01, weight_constraint=True):  # repo_change
     # l1 and l2 regularization shouldn't be true in the same time
     if l1_reg and l2_reg:
         print("No need to run l1 and l2 regularization in the same time")
@@ -101,6 +120,11 @@ def main(nb_epoch=50, data_augmentation=False, noise=False, maxout=False, dropou
     # split the validation dataset
     # X_train, X_valid, y_train, y_valid = train_test_split(X_train, y_train, test_size=0.2, random_state=0)
 
+    portionFact = 0.001  # repo_change
+    X_train = X_train[0:int(portionFact * len(X_train))]  # repo_change
+    y_train = y_train[0:int(portionFact * len(y_train))]  # repo_change
+    X_test = X_test[0:int(portionFact * len(X_test))]  # repo_change
+    y_test = y_test[0:int(portionFact * len(y_test))]  # repo_change
 
     # convert class vectors to binary class matrices
     Y_train = np_utils.to_categorical(y_train, nb_classes)
