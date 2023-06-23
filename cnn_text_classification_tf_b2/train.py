@@ -9,6 +9,10 @@ import data_helpers
 from text_cnn import TextCNN
 from tensorflow.contrib import learn
 
+from annotest import an_language as an
+
+an.annotest_module_test()
+
 # Parameters
 # ==================================================
 
