@@ -17,6 +17,7 @@ from keras_adversarial import AdversarialModel, ImageGridCallback, simple_gan, g
 # from adversarial import AdversarialOptimizerSimultaneous, normal_latent_sampling, AdversarialOptimizerAlternating  # repo_change
 from keras_adversarial import AdversarialOptimizerSimultaneous, normal_latent_sampling, AdversarialOptimizerAlternating  # repo_change
 
+from annotest import an_language as an
 
 def leaky_relu(x):
     return K.relu(x, 0.2)
@@ -69,6 +70,8 @@ def model_generator():
     return Model(g_input, g_V)
 
 
+@an.arg("input_shape", an.array_shapes(min_dims=3, max_dims=3, min_side=1, max_side=60))
+@an.arg("dropout_rate", an.floats(min_value=0, max_value=1, exclude_max=True))
 def model_discriminator(input_shape=(1, 28, 28), dropout_rate=0.5):
     d_input = dim_ordering_input(input_shape, name="input_x")
     nch = 512
