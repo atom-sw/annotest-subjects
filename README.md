@@ -17,34 +17,34 @@ Mohammad Rezaalipour and Carlo A. Furia.](#13-citations).
 
 ## 1.1 Bugs information
 
-File [bugs_info.csv](bugs_info.csv) contains information about these
+File [bugs_info.csv](bugs_info.csv) contains information about the
 62 bugs in this repository. For each bug, this file includes 
 its project name, the framework/library used to develop it, and a link
-to commit line numbers representing the bug.
+to commit line numbers in its original repository, representing the bug.
 
-For each bug, we added the following items to make it easy for users to reproduce these bugs:
+For each bug, we added the following items to make it easy for users to reproduce it:
 
-- aN annotations (within the bug's source code) required by aNNoTest to generate tests.
+- aN annotations (within the bug's source code) required by aNNoTest to generate tests (e.g., [annotations](https://github.com/atom-sw/annotest-subjects/blob/main/keras_adversarial_b1/examples/example_gan.py#L38-L39)).
 
-- Comment `repo_bug` within the source code, indicating bug's location.
+- Comment `repo_bug` within the bug's source code, indicating bug's location (e.g., [bug location](https://github.com/atom-sw/annotest-subjects/blob/main/keras_adversarial_b1/examples/example_gan.py#L45)).
 
-- File `requirements.txt` containing project dependencies.
+- File `requirements.txt` containing project dependencies (e.g., [requirements.txt](https://github.com/atom-sw/annotest-subjects/blob/main/keras_adversarial_b1/requirements.txt)).
 
-- Script `make_env.sh` that creates a conda environment for the bug and installs all the bug's dependencies.
+- Script `make_env.sh` that creates a conda environment for the bug and installs all the bug's dependencies (e.g., [make_env.sh](https://github.com/atom-sw/annotest-subjects/blob/main/keras_adversarial_b1/make_env.sh)).
 
-- Script `make_data.sh` that downloads the data required by the bug. Only bugs that need such data have this script.
+- Script `make_data.sh` that downloads the data required by the bug. Only bugs that need such data have this script (e.g., [make_data.sh](https://github.com/atom-sw/annotest-subjects/blob/main/car_recognition_b1/make_data.sh)).
 
-- The failing test we generated for the bug, using aNNoTest. We refer to this test as aNNoTest test. Following the instructions in the current repository, users can generate this test themselves too, using aNNoTest.
+- The failing test we generated for the bug, using aNNoTest. We refer to this test as aNNoTest test. Following the instructions in the current repository, users can generate this test themselves too, using aNNoTest (e.g., [aNNoTest test](https://github.com/atom-sw/annotest-subjects/blob/main/keras_adversarial_b1/test_annotest/examples/test_example_gan.py#L11-L18)).
 
-- File `annotest_test_name.txt` including the name of aNNoTest test that can reproduce the bug.
+- File `annotest_test_name.txt` including the name of aNNoTest test that can reproduce the bug (e.g., [annotest_test_name.txt](https://github.com/atom-sw/annotest-subjects/blob/main/keras_adversarial_b1/annotest_test_name.txt)).
 
-- A failing test in Pytest format that we manually wrote from `aNNoTest` test to make it easy for users to understand what the `aNNoTest` test does.
+- A failing test in Pytest format that we manually wrote according to aNNoTest test to make it easy for users to understand what the aNNoTest test does (e.g., [Pytest manual test](https://github.com/atom-sw/annotest-subjects/blob/main/keras_adversarial_b1/tests_manual/test_failing.py)).
 
-- Script `run_annotest_failing_test.sh` that activates the bug's conda environment and runs the `aNNoTest` test.
+- Script `run_annotest_failing_test.sh` that activates the bug's conda environment and runs the `aNNoTest` test (e.g., [run_annotest_failing_test.sh](https://github.com/atom-sw/annotest-subjects/blob/main/keras_adversarial_b1/run_annotest_failing_test.sh)).
 
-- Script `run_manual_failing_test.sh` that activates the bug's conda environment and runs the manually produced failing test.
+- Script `run_manual_failing_test.sh` that activates the bug's conda environment and runs the manually produced failing test (e.g., [run_manual_failing_test.sh](https://github.com/atom-sw/annotest-subjects/blob/main/keras_adversarial_b1/run_manual_failing_test.sh)).
 
-- File `expected_error_message.txt`, including the error message aNNoTest test and the manually produced test must report.
+- File `expected_error_message.txt`, including the error message aNNoTest test and the manually produced test must report (e.g., [expected_error_message.txt](https://github.com/atom-sw/annotest-subjects/blob/main/keras_adversarial_b1/expected_error_message.txt)).
  
 
 ## 1.2 Reproducing bugs
@@ -59,7 +59,7 @@ website](https://docs.anaconda.com/free/anaconda/install/index.html).
 
 2. Set the enviroment varaible `ANACONDA3_DIRECTORY` to
 point to `anaconda3` directory on your machine.
-For instance, if anaconda3 is in your home directory
+For instance, if `anaconda3` is in your home directory
 (i.e., `~/anaconda3`), run the following command
 or put it in your `~/.profile` file.
 
@@ -78,11 +78,11 @@ cd annotest-subjects
 ```
 
 4. For each bug, there is a directory in the repo.
-First, `cd` to that directory (e.g. `densenet_b1`), and then, make the
+First, `cd` to that directory (e.g. `keras_adversarial_b1`), and then, make the
 bash scripts in that directory executable.
 
 ```
-cd densenet_b1
+cd keras_adversarial_b1
 ```
 
 ```
@@ -96,7 +96,7 @@ chmod +x *.sh
 ```
 
 6. Some bugs require some datasets or files.
-for such bugs, there is a bash script named `make_data.sh`,
+For such bugs, there is a bash script named `make_data.sh`,
 running which downloads these dependencies and puts them
 in directory `~/annotest_subjects_data` on your machine.
 
@@ -107,12 +107,12 @@ in directory `~/annotest_subjects_data` on your machine.
 7. To reproduce the bug, you must install aNNoTest inside the
 conda environment created by running script `make_env.sh`.
 The name of the conda environment is the same as the bug 
-id (i.e., the bug's directory name), which is `densenet_b1` in our example.
-So, first activate environment the bug's environment, and then
+id (i.e., the bug's directory name), which is `keras_adversarial_b1` in our example.
+So, first activate the bug's environment, and then
 install aNNoTest.
 
 ```
-conda activate densenet_b1
+conda activate keras_adversarial_b1
 ```
 
 ```
@@ -131,7 +131,7 @@ annotest .
 Hypothesis test generated by aNNoTest. This bash script
 simply activates the bug's conda environment and runs
 the Hypothesis test generated by aNNoTest. You can find the
-name of these tests in files named `annotest_test_name.txt` (e.g., [annotest_test_name.txt](densenet_b1/annotest_test_name.txt)).
+name of these tests in files named `annotest_test_name.txt` (e.g., [annotest_test_name.txt](keras_adversarial_b1/annotest_test_name.txt)).
 
 ```
 ./run_annotest_failing_test.sh
@@ -141,7 +141,7 @@ The error message must be the same as the one in file `expected_error_message.tx
 
 10. For every bug, we have included a Pytest
 failing test that also reproduces the bug. We wrote
-these tests manually using the Hypothesis tests aNNoTest
+these tests manually according to the Hypothesis tests aNNoTest
 generated. Execute the following command to run the manual
 failing test.
 
