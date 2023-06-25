@@ -119,9 +119,16 @@ conda activate keras_adversarial_b1
 pip install annotest
 ```
 
-8. Run aNNoTest to generate the failing test.
+8. For each bug, we have already generated aNNoTest tests.
+A bug's aNNoTest test is in directory `test_annotest`.
+First remove the existing aNNoTest tests, and then,
+nun aNNoTest to generate them.
 All of the projects in this repository are already
 annotated. So, you do not need to annotate them, yourself.
+
+```
+rm -rf test_annotest
+```
 
 ```
 annotest .
