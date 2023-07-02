@@ -1,5 +1,8 @@
 # 1. aNNoTest subjects
 
+![GitHub](https://img.shields.io/github/license/atom-sw/annotest-subjects)
+
+
 The current repository contains 62 bugs collected in [Islam et al. (2019)](https://dl.acm.org/doi/10.1145/3338906.3338955),
 which provided these bugs as links to
 line numbers within different commits, each representing one bug.
