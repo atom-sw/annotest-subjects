@@ -74,7 +74,7 @@ export ANACONDA3_DIRECTORY=~/anaconda3
    For example, bug `keras_adversarial_b1`.
 
 ```bash
-cd "$ANNOTEST_SUBKECTS/keras_adversarial_b1"
+cd "$ANNOTEST_SUBJECTS/keras_adversarial_b1"
 # make sure scripts are executable
 chmod u+x *.sh
 ```
@@ -106,7 +106,7 @@ pip install annotest
     directory project. For example, bug `keras_adversarial_b1`.
 
 ```bash
-cd "$ANNOTEST_SUBKECTS/keras_adversarial_b1" 
+cd "$ANNOTEST_SUBJECTS/keras_adversarial_b1" 
 rm -rf test_annotest
 annotest .
 ```
