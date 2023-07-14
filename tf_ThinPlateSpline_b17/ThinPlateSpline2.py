@@ -4,7 +4,7 @@ import numpy as np
 from annotest import an_language as an
 
 import os
-Path_to_file = (os.path.expanduser('~') + "/annotest_subjects_data/tf_ThinPlateSpline_b13/original.png")
+Path_to_file = (os.path.expanduser('~') + "/annotest_subjects_data/tf_ThinPlateSpline_b17/original.png")
 
 
 @an.generator()
