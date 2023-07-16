@@ -270,7 +270,7 @@ def main(nb_epoch=1, data_augmentation=False, noise=False, maxout=False, dropout
 
     output_fig_name = os.path.join(file_path, 'train_val_loss_with_dropout__{0}_data_augmentation_{1}_noise_{2}_sigma{12}_maxout_{3}_dropout_{4}_l1_{5}_l2_{6}_sigma_{7}_l1weight_{8}_l2weight_{9}_max_pooling_{10}_deep_{11}.png'.format(nb_epoch, data_augmentation, noise, maxout, dropout, l1_reg, l2_reg, sigma, l1_weight, l2_weight, max_pooling, deep, sigma))
     plt.savefig(output_fig_name, dpi=300)
-    plt.show()
+    # plt.show()  # repo_change
 
 if __name__ == '__main__':
     opts = parse_arg()
