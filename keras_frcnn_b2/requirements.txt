@@ -1,3 +1,4 @@
+wrapt==1.11
 h5py==2.6.0
 keras==2.0.3
 opencv-python==3.4.0.14
