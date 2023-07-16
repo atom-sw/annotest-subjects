@@ -89,3 +89,5 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+outputs_good_model/l2_weight_constraint
