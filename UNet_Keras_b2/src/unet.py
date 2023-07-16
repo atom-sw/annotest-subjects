@@ -4,37 +4,6 @@ from keras.layers.convolutional import Conv2D, UpSampling2D
 from keras.layers.pooling import MaxPooling2D
 from keras.layers.merge import Concatenate
 
-from annotest import an_language as an
-
-
-@an.generator()
-@an.exclude()
-def generator_UNet__add_decode_layers_input_layer():
-    inputs = Input((572, 572, 1))
-    unetObject = UNet()
-
-    encodeLayer1 = unetObject._add_Encode_layers(64, inputs, is_first=True)
-    encodeLayer2 = unetObject._add_Encode_layers(128, encodeLayer1)
-    encodeLayer3 = unetObject._add_Encode_layers(256, encodeLayer2)
-    encodeLayer4 = unetObject._add_Encode_layers(512, encodeLayer3)
-    encodeLayer5 = unetObject._add_Encode_layers(1024, encodeLayer4)
-
-    return encodeLayer5
-
-
-@an.generator()
-@an.exclude()
-def generator_UNet__add_decode_layers_concat_layer():
-    inputs = Input((572, 572, 1))
-    unetObject = UNet()
-
-    encodeLayer1 = unetObject._add_Encode_layers(64, inputs, is_first=True)
-    encodeLayer2 = unetObject._add_Encode_layers(128, encodeLayer1)
-    encodeLayer3 = unetObject._add_Encode_layers(256, encodeLayer2)
-    encodeLayer4 = unetObject._add_Encode_layers(512, encodeLayer3)
-
-    return encodeLayer4
-
 
 class UNet(object):
     def __init__(self):
@@ -80,9 +49,6 @@ class UNet(object):
         layer = Conv2D(filters, 3, activation='relu')(layer)  # repo_change
         return layer
 
-    @an.arg("filters", an.sampled([512]))
-    @an.arg("inputLayer", an.obj(generator_UNet__add_decode_layers_input_layer))
-    @an.arg("concatLayer", an.obj(generator_UNet__add_decode_layers_concat_layer))
     def __add_Decode_layers(self, filters, inputLayer, concatLayer):
         layer = UpSampling2D((2, 2))(inputLayer)  # repo_bug (not clear)
         layer = Concatenate()([layer, concatLayer])  # repo_bug (not clear)
